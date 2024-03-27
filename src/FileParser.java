@@ -8,7 +8,7 @@ public class FileParser
 {
     public static String[] parseFile(String name)
     {
-        ArrayList<String> file = new ArrayList<String>();
+        ArrayList<String> file = new ArrayList<>();
 
         try
         {
@@ -31,31 +31,16 @@ public class FileParser
 
     }
 
-    public static void getString(String[] file)
+    public static String convertString(String line)
     {
-        for (int i = 0; i < file.length; i++)
-        {
-            int indexOfBreak = file[i].indexOf(",") - 2;
-
-            file[i] = file[i].substring(0, indexOfBreak);
-        }
+        return line.substring(0, line.indexOf(" "));
     }
 
     public static int[] getCombinations(String line)
     {
-        ArrayList<Integer> combinations = new ArrayList<>();
-        line = line.substring(line.indexOf(",") - 1);
 
-        for (int i = 0; i < line.length(); i++)
-        {
-            if (line.charAt(i) != ',')
-            {
-                combinations.add(Integer.parseInt(line.substring(i, i + 1)));
-            }
-        }
+        line = line.substring(line.indexOf(" ") + 1);
 
-        Integer[] combos = new Integer[combinations.size()];
-        combos = combinations.toArray(combos);
-        return Arrays.stream(combos).mapToInt(Integer::intValue).toArray();
+        return Arrays.stream(line.split(",")).mapToInt(Integer::parseInt).toArray();
     }
 }
